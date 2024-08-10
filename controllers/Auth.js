@@ -70,7 +70,7 @@ exports.login = async (req,res)=>{
         const email = req.body.email;
         const password = req.body.password;
 
-
+        //Checking if the input fields are empty or not 
         if(!email || !password){
             return res.status(400).json({
                 sucess:false,
@@ -78,6 +78,7 @@ exports.login = async (req,res)=>{
             })
         }
 
+        // Checking if user exists in db or not
         let user = await User.findOne({email});
 
         if(!user){
@@ -94,6 +95,7 @@ exports.login = async (req,res)=>{
             role:user.role
         }
 
+        // Valid password
         if(await bcrypt.compare(password,user.password)){
             
             const token = jwt.sign(payload,process.env.JWT_KEY,
