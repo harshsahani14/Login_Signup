@@ -4,6 +4,9 @@ const server = express();
 require("dotenv").config();
 const port = process.env.port || 4000;
 
+const cookieParser = require("cookie-parser");
+server.use(cookieParser());
+
 server.use(express.json());
 
 const { dbConnect } = require("./config/database");

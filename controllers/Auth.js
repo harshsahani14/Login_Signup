@@ -108,10 +108,11 @@ exports.login = async (req,res)=>{
             user.token = token
             user.password = null
 
-            res.cookie("Token",token,
-                {
-                    expiresIn:"3 days"
-                }).status(200).json(
+            const options = {
+                expires:new Date( Date.now() + 30000)
+            }
+
+            res.cookie("token",token,options).status(200).json(
                 {
                     sucess:true,
                     token:token,

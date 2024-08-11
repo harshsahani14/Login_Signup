@@ -6,8 +6,9 @@ exports.authenticate = (req,res,next)=>{
     // Checking if the the user has a valid token or not
     try{
 
+        console.log(req.header("Authorization"))
         // Fetching token
-        const token = req.body.token;
+        const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ","");
 
         if(!token){
             return res.status(401).json(
